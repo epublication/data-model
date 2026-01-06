@@ -17,10 +17,25 @@ create["Create
 announcement"]:2
 publish["Publish
 announcement"]:2
+find["Find
+announcement"]:2
 authentification_authorisation["Authentification
 and Authorisation"]:2
-
+configure["Configure gazette"]:2
+operate["Operations"]:2
 ```
+I am...
+- Data client
+  -- API Endpoint: ../SearchAnnouncement
+- Data supplier
+  -- API Endpoint: ../Submission
+- Editor
+  -- API Endpoint: ../Gazette
+- Admin
+
+
+
+
 
 
 
