@@ -1,6 +1,29 @@
 # Data Model
 Description here
 
+
+  
+```mermaid
+
+%%{
+  init: {
+    'theme': 'neutral'
+  }
+}%%
+
+block
+columns 6
+create["Create
+announcement"]:2
+publish["Publish
+announcement"]:2
+authentification_authorisation["Authentification
+and Authorisation"]:2
+
+```
+
+
+
 ## Available Pages
 
 - [Core Model](Core-Model_1373544026.html)
