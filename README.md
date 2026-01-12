@@ -1,3 +1,6 @@
+> [!NOTE] 
+> If you are unfamiliar with the portal, we recommend that you read the brief [introduction](https://github.com/epublication/overview) to ePublication, regardless of your intention to use the APIs.
+
 # The Announcement API
 - Announcement Model
 
