@@ -1,19 +1,28 @@
-> [!NOTE] 
+> [!IMPORTANT] 
 > If you are unfamiliar with the portal, we recommend that you read the brief [introduction](https://github.com/epublication/overview) to ePublication, regardless of your intention to use the APIs.
 
 # The Announcement API
-- Announcement Model
+> [!TIP] 
+> Who might be interessted in this API?
+> - Data client
+> - Data supplier
+
+Announcement schema here
 
 # The Editor API
-xxx
-I am...
-- Data client
-  -- API Endpoint: ../SearchAnnouncement
-- Data supplier
-  -- API Endpoint: ../Submission
-- Editor
-  -- API Endpoint: ../Gazette
-- Admin
+> [!TIP] 
+> Who might be interessted in this API?
+> - Editor
+> - Data client
+> - Data supplier
+
+# The Admin API
+> [!TIP] 
+> Who might be interessted in this API?
+> - Software Developer
+> - Anyone with a deeper interest in understanding the code of the portal
+
+
 
 
 
