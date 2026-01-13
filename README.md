@@ -7,7 +7,7 @@
 > - Data client
 > - Data supplier
 
-Announcement schema here
+General Announcement schema here
 
 Examples: Bruno Collection here
 
