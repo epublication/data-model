@@ -9,6 +9,8 @@
 
 Announcement schema here
 
+Examples: Bruno Collection here
+
 # The Editor API
 > [!TIP] 
 > Who might be interessted in this API?
@@ -16,13 +18,15 @@ Announcement schema here
 > - Data client
 > - Data supplier
 
+Details coming soon
+
 # The Admin API
 > [!TIP] 
 > Who might be interessted in this API?
 > - Software Developer
 > - Anyone with a deeper interest in understanding the code of the portal
 
-
+Details coming soon
 
 
 
