@@ -18,7 +18,7 @@ There are several ways to familiarize yourself with the API.
 * Use the predefined Bruno collection provided in this repository
 
 ## Swagger
-Swagger is an open-source toolset built around the OpenAPI Specification that helps developers design, build, document, and consume RESTful web services. If you're interested in playing around and getting familiar with the API, there is no need to install local software, simply go to the public [Swagger Endpoints](https://preview.epublication.ch/api/management/swagger-ui/index.html?urls.primaryName=External#/External%20Consumers%3A%20Restricted%20APIs/searchInterfaceAnnouncements)
+Swagger is an open-source toolset built around the OpenAPI Specification that helps developers design, build, document, and consume RESTful web services. If you're interested in playing around and getting familiar with the API, there is no need to install local software, simply go to the public [Swagger Endpoints](https://preview.epublication.ch/api/management/swagger-ui/index.html?urls.primaryName=External#/External%20Consumers%3A%20Public%20APIs/searchInterfaceAnnouncements)
 
 #### Get published announcements
 Getting published announcements would work step by step as follows:<br /><br />1. No authentication is required for requesting published announcements (the screenshot below shows all endpoints that do not require authentication).<br /><br />
