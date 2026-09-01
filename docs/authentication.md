@@ -22,28 +22,6 @@ Both zones use the same header, which lets third parties integrate against
 either with a single, uniform pattern (one place to configure the secret in
 any HTTP client) — mirroring the GitHub/GitLab personal-access-token model.
 
-## Current state in the spec
-
-The `External_OpenAPI_Spec.json` analyzed for this documentation does not
-yet define two separate security schemes. It currently declares a single
-global security requirement (`oauth2`), applied to **every** operation —
-including the public-zone endpoints, which are meant to be
-unauthenticated. This matches previously identified spec defects:
-
-- **D11** – public endpoints incorrectly appear to require an M2M token.
-- **D7** – an `openid` scope is requested on a client-credentials flow,
-  which doesn't make sense for M2M access.
-
-The target security schema (two schemes, assigned per operation) has been
-discussed but is not yet reflected in the spec version analyzed here.
-
-## ✅ Resolved: which credential does announcement submission actually use?
-
-The announcement **submission** endpoint,
-`POST /interface/v1/announcements/submission`, lives under the path prefix
-`/interface/v1/**` — the **restricted zone**, secured with M2M OAuth2
-client credentials, not the personal API key. This is now confirmed.
-
 ### Planned mechanism: Technical Users (Publishing Entity self-service)
 
 > **Status: planned, not yet live.** Target: **early October 2026**
