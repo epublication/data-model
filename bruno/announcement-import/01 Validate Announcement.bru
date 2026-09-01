@@ -1,0 +1,154 @@
+meta {
+  name: 01 Validate Announcement
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{BASE_URL_PUBLIC_API_INTERFACE}}/announcements/validate
+  body: json
+  auth: none
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "hasPrivacyRestrictions": false,
+    "plannedPublicationDate": "2026-09-03T00:00:00+02:00",
+    "publicityEndDate": "2026-11-12",
+    "publicityPeriod": 91,
+    "announcementType": {
+      "type": "403-FEDE1000",
+      "name": {
+        "de": "Arbeitszeitbewilligung",
+        "fr": "Autorisation de travail",
+        "it": "Autorizzazione all'orario di lavoro",
+        "en": "Work permit"
+      }
+    },
+    "publishingEntity": {
+      "publishingEntityId": "CHE-123.456.789-001",
+      "uid": "CHE123456789",
+      "organisationType": {
+        "key": "general",
+        "name": { "de": "Alle Meldungstypen" }
+      },
+      "publishingEntityName": { "de": "Sample Publishing Entity" },
+      "publishingEntityNameAddition": { "de": "Test" }
+    },
+    "gazette": {
+      "gazetteId": "FEDE1000",
+      "gazetteCategory": "FEDERAL",
+      "gazetteName": { "de": "Test-Amtsblatt (alle Standard-Meldungstypen)" }
+    },
+    "secondaryGazettes": [],
+    "legalBasis": {
+      "de": "Es gibt keine allgemeingültige Rechtsgrundlage."
+    },
+    "status": "SUBMITTED",
+    "primaryTopic": {
+      "key": "employment",
+      "name": { "de": "Arbeit, Bildung und Beschaffung" }
+    },
+    "topics": [
+      { "key": "employment", "name": { "de": "Arbeit, Bildung und Beschaffung" } }
+    ],
+    "primaryAffectedCanton": "ZH",
+    "affectedCantons": ["ZH", "AG", "SH"],
+    "languages": ["de"],
+    "primaryLanguage": "de",
+    "title": {
+      "de": "Bewilligungsgesuch, Nachtarbeit, Sample Company Ltd, Muri bei Bern"
+    },
+    "businessCase": {
+      "key": "application",
+      "name": { "de": "Bewilligungsgesuch" }
+    },
+    "legalBlock": {
+      "legalNotice": {
+        "de": "Gegen diese Verfügung kann innert 30 Tagen nach Veröffentlichung das nächsthöhere Rechtsmittel ergriffen werden."
+      },
+      "deadlines": [
+        { "label": { "de": "Frist" }, "type": "DAYS", "value": 30 }
+      ],
+      "contact": {
+        "de": "Sample Amt, Musterabteilung<br>Musterstrasse 1<br>3000 Bern"
+      }
+    },
+    "content": [
+      {
+        "language": "de",
+        "elements": [
+          {
+            "key": "businessCaseType",
+            "label": "Art der Bewilligung",
+            "type": "enum",
+            "hidden": false,
+            "hideLabel": false,
+            "values": ["Zusammengesetzten ununterbrochenen Betrieb"]
+          },
+          {
+            "key": "primaryEntityLegalPerson",
+            "label": "Betroffene Organisation",
+            "type": "legalPerson",
+            "hidden": false,
+            "hideLabel": false,
+            "values": [
+              {
+                "uid": "CHE123456789",
+                "name": "Sample Company Ltd",
+                "legalForm": "0106",
+                "address": {
+                  "addressLine1": "",
+                  "street": "Musterstrasse",
+                  "houseNumber": "1",
+                  "town": "Bern",
+                  "swissZipCode": "3000"
+                }
+              }
+            ]
+          },
+          {
+            "key": "notice",
+            "label": "Angaben zur Bewilligung",
+            "type": "textarea",
+            "hidden": false,
+            "hideLabel": false,
+            "values": ["<p>Sample publication text ...</p>"]
+          }
+        ]
+      }
+    ]
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("returns 200 for a valid announcement", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}
+
+docs {
+  Validates an announcement payload without submitting/publishing it.
+  Runs against the **public zone** (`/public/interface/v1/announcements/validate`).
+
+  Use this to check a payload's shape before calling the actual submission
+  endpoint (02) — no announcement is created and nothing is published.
+
+  Caveat: `auth: none` and the expected `200` response here are based on
+  the endpoint's path prefix and general spec conventions, not an
+  independently confirmed real response (unlike request 02, which mirrors
+  a verified working submission). If this request fails unexpectedly,
+  treat the auth requirement and status code as open questions rather than
+  a bug in your payload.
+
+  See ../../docs/announcement-import.md, Section 5, for the corresponding
+  submission endpoint and its validation rules.
+}
