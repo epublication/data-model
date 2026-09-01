@@ -154,9 +154,9 @@ Content-Type: application/json
 > [Authentication](authentication.md) for the confirmed mechanism
 > (Technical Users), which is planned but **not yet live**.
 
-### 5.1 Business Rules from the Spec Description
+### 5.1 Business Rules 
 
-The endpoint description in the spec implies several validation rules that
+The endpoint description has several validation rules that
 go beyond the plain field schema:
 
 - The raw request body is validated against `announcement-jsonschema.json`
@@ -171,7 +171,7 @@ go beyond the plain field schema:
   sent — the platform sets `publicationDateTime` itself and returns it in
   the announcement detail. `status` must be `SUBMITTED` or `PUBLISHED`
   (the other enum values, such as `DRAFT` or `CANCELLED`, are not intended
-  as submission input per the description).
+  as submission input).
 - Content elements of type `attachment` require a **platform-relative**
   `url` (leading slash plus UUID, e.g.
   `/3f2a1c9e-0000-4000-8000-000000000000`); an absolute URL is rejected.
