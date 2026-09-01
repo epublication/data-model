@@ -1,0 +1,37 @@
+name: Automated Bruno Collection Release
+
+on:
+  push:
+    branches:
+      - main # Ersetze dies mit 'master', falls dein Haupt-Branch so heisst
+    paths:
+      - 'bruno/**' # Pipeline startet NUR, wenn sich im Ordner "bruno" etwas ändert
+
+permissions:
+  contents: write # Erlaubt der Pipeline, Releases zu erstellen
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Create ZIP Archive
+        run: |
+          # Packt den Ordner "bruno" in eine ZIP-Datei namens bruno-collection.zip
+          zip -r bruno-collection.zip bruno
+
+      - name: Generate Dynamic Version Tag
+        id: tag
+        run: echo "TAG_NAME=v$(date +'%Y.%m.%d.%H%M%S')" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.TAG_NAME }}
+          name: "Bruno Collection - ${{ steps.tag.outputs.TAG_NAME }}"
+          body: "Hier ist die aktuellste Version der Bruno-API-Collection als direkt einsatzbereites ZIP-Archiv."
+          draft: false
+          prerelease: false
+          files: bruno-collection.zip
