@@ -7,7 +7,7 @@ from and adapt, not a production client library.
 ## Setup
 
 1. Install [Bruno](https://www.usebruno.com/downloads).
-2. Open this `bruno/` folder as a collection (**File → Open Collection**).
+2. Open this `bruno/` folder as a collection (**File → Open Collection**). Alternatively, you can download the collection as a ZIP file.
 3. Select the **preview** environment (top-right environment selector).
 4. Fill in your own credentials in the environment — do not commit real
    values:
