@@ -569,8 +569,6 @@ announcement type) is not documented here yet.
   types, key off the element's `Term` value rather than specific JSON
   fields (analogous to the recommendation in the Announcement Type
   documentation).
-- **Use a test/sandbox environment**, once available, before publishing in
-  production.
 
 ---
 
