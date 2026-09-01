@@ -1,82 +1,55 @@
-# Migrationsdokumentation: SHAB → ePublication (Meldungstypen-Mapping)
+# Migration Guide: SHAB → ePublication (Announcement Type Mapping)
 
-> **Kontext:** ePublication (Swiss Official Gazettes Portal) löst das bisherige
-> Amtsblattportal ab, über das amtliche Publikationen (Meldungen) verschiedener
-> Gemeinwesen auf den drei föderalen Stufen der Schweiz (Bund, Kantone, Gemeinden)
-> veröffentlicht wurden. Auf Stufe Bund betrifft dies insbesondere das **SHAB**
-> (Schweizerisches Handelsamtsblatt). Auf ePublication werden Meldungen mit einer
-> **einfacheren, generischeren Struktur** publiziert als bisher auf dem
-> Amtsblattportal.
-
----
-
-## Kanonische Quelle
-
-Die vollständigen, laufend gepflegten Mapping-Tabellen (bisherige SHAB-Rubriken/
-Unterrubriken → neue Meldungstypen) werden **nicht** in diesem Repository
-dupliziert, sondern zentral im Help Center gepflegt, um Redundanz und
-veraltete Kopien zu vermeiden:
-
-- 🇩🇪 Deutsch: [Amtsblätter der Plattform](https://helpcenter-epublication.zendesk.com/hc/de/articles/29956526113052-Amtsbl%C3%A4tter-der-Plattform)
-- 🇫🇷 Français: [Bulletins officiels de la plateforme](https://helpcenter-epublication.zendesk.com/hc/fr/articles/29956526113052-Bulletins-officiels-de-la-plateforme)
-- 🇮🇹 Italiano: [Gazzette ufficiali della piattaforma](https://helpcenter-epublication.zendesk.com/hc/it/articles/29956526113052-Gazzette-ufficiali-della-piattaforma)
-
-> Diese Seite existiert **nicht auf Englisch**. Englischsprachige Leser:innen
-> müssen auf eine der drei Sprachvarianten ausweichen.
-
-Von dort aus ist pro Amtsblatt die zugehörige Excel-Mappingtabelle als Download
-verlinkt, u. a. für das **Schweizerische Handelsamtsblatt (SHAB)**. Für die
-meisten kantonalen Amtsblätter sind die Mappingtabellen laut Seite noch nicht
-publiziert ("Mappingtabelle folgt...") – Stand siehe jeweils die Seite selbst.
-
-> **Hinweis:** Diese Mapping-Tabellen befinden sich laut Help Center noch in
-> Bearbeitung und werden laufend ergänzt/angepasst. Für den verbindlichen,
-> aktuellen Stand daher immer die Help-Center-Seite konsultieren, nicht eine
-> lokale Kopie.
+> **Context:** ePublication (Swiss Official Gazettes Portal) replaces the
+> previous Amtsblattportal, through which official publications
+> (announcements) of various public bodies at the three federal levels of
+> Switzerland (federal, cantonal, municipal) were published. At the
+> federal level, this concerns in particular the **SHAB**
+> (Schweizerisches Handelsamtsblatt / Swiss Official Gazette of Commerce).
+> On ePublication, announcements are published with a **simpler, more
+> generic structure** than previously on the Amtsblattportal.
 
 ---
 
-## Bekannte offene Punkte (aus einer früheren Analyse)
+## Source
 
-Bei einer früheren Analyse einer Zwischenversion der SHAB-Mappingtabelle sind
-folgende Punkte aufgefallen, die bei der Migration zu beachten sind. Da sich
-die kanonische Tabelle laufend ändert, sollte jeder Punkt gegen den
-**aktuellen** Stand im Help Center verifiziert werden – die folgenden Punkte
-könnten mittlerweile überholt sein:
+The complete, continuously maintained mapping tables (previous SHAB
+categories/subcategories → new announcement types) are **not** duplicated
+in this repository. Instead, they are maintained centrally in the Help
+Center, to avoid redundancy and outdated copies:
 
-- **Unklare Zuordnung bei `SB05`** (Bereinigung des Eigentumsvorbehaltsregisters):
-  In einer früheren Version enthielt die Meldungstyp-Spalte für dieses Kürzel
-  einen Zusatz zu Typ `213` ("Grundbucheinführung") mit einem Fragezeichen,
-  was auf eine noch ungeklärte Zuordnung hindeutete.
-- **Rechtstexte, die nicht mehr automatisch bereitgestellt werden:** Für
-  mehrere Kürzel im Bereich Handelsregisterverordnung war vermerkt, dass der
-  bisher vom Amtsblattportal bereitgestellte Rechtstext künftig **nicht mehr**
-  automatisch zur Verfügung steht. Fachapplikationen, die sich bisher darauf
-  verlassen haben, müssten diesen künftig selbst mitliefern.
-- **Wegfall von Radiobuttons/Einzelfeldern zugunsten von Freitext:** An
-  mehreren Stellen (z. B. Kapitalherabsetzung) wurde vermerkt, dass frühere
-  Radiobutton-Auswahlen wegfallen und entsprechende Rechtstexte künftig selbst
-  definiert werden müssen statt aus einer vorgegebenen Auswahl zu stammen.
+- 🇩🇪 German: [Amtsblätter der Plattform](https://helpcenter-epublication.zendesk.com/hc/de/articles/29956526113052-Amtsbl%C3%A4tter-der-Plattform)
+- 🇫🇷 French: [Bulletins officiels de la plateforme](https://helpcenter-epublication.zendesk.com/hc/fr/articles/29956526113052-Bulletins-officiels-de-la-plateforme)
+- 🇮🇹 Italian: [Gazzette ufficiali della piattaforma](https://helpcenter-epublication.zendesk.com/hc/it/articles/29956526113052-Gazzette-ufficiali-della-piattaforma)
 
----
+> This page does **not exist in English**. English-speaking readers need
+> to use one of the three language versions above.
 
-## Praktischer Hinweis zur Nutzung
+From there, the corresponding Excel mapping table is linked as a download
+for each gazette, including the **Swiss Official Gazette of Commerce
+(SHAB)**. For most cantonal gazettes, the mapping tables have not yet been
+published according to the page ("Mapping table coming soon...") — see
+the page itself for the current status.
 
-Für die technische Umsetzung eines gefundenen Meldungstyps (Felder,
-`valueTypeConfig`, Geschäftsfälle) ist die Mapping-Tabelle nur ein
-Startpunkt. Verbindlich ist die Live-Definition über die API:
+> **Note:** These mapping tables are still being worked on and are continuously extended/adjusted. Always consult the Help Center page for the binding, current status rather than a local copy.
+
+## Practical Note on Usage
+
+For the technical implementation of a given announcement type (fields,
+`valueTypeConfig`, business cases), the mapping table is only a starting
+point. The live definition via the API is authoritative:
 
 ```http
 GET /public/interface/v1/announcement-types/{announcementTypeId}
 ```
 
-Siehe [Announcement Export](announcement-export.md), Abschnitt 7, für Details
-zu diesem und weiteren Referenzdaten-Endpunkten.
+See [Announcement Export](announcement-export.md), Section 7, for details
+on this and other reference-data endpoints.
 
 ---
 
-## Support & weiterführende Links
+## Support & Further Links
 
-- [Announcement Import](announcement-import.md) – separates Dokument
-- [Announcement Export](announcement-export.md) – separates Dokument
-- Fachliches Grundlagendokument: [Standardisierte Meldungstypen](https://helpcenter-epublication.zendesk.com/hc/de/articles/28970270476572-Standardisierte-Meldungstypen) (Deutsch)
+- [Announcement Import](announcement-import.md) – separate document
+- [Announcement Export](announcement-export.md) – separate document
+- Business background document: [Standardized Announcement Types](https://helpcenter-epublication.zendesk.com/hc/de/articles/28970270476572-Standardisierte-Meldungstypen) (German)
