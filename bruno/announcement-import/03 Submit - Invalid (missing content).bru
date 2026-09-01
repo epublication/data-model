@@ -1,0 +1,66 @@
+meta {
+  name: 03 Submit - Invalid (missing content)
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{BASE_URL_API_INTERFACE}}/announcements/submission
+  body: json
+  auth: inherit
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "hasPrivacyRestrictions": false,
+    "plannedPublicationDate": "2026-09-03T00:00:00+02:00",
+    "publicityPeriod": 91,
+    "announcementType": {
+      "type": "403-FEDE1000"
+    },
+    "publishingEntity": {
+      "publishingEntityId": "CHE-123.456.789-001",
+      "uid": "CHE123456789"
+    },
+    "gazette": {
+      "gazetteId": "FEDE1000"
+    },
+    "secondaryGazettes": [],
+    "status": "SUBMITTED",
+    "primaryTopic": { "key": "employment" },
+    "topics": [{ "key": "employment" }],
+    "languages": ["de"],
+    "primaryLanguage": "de",
+    "businessCase": { "key": "application" }
+  }
+}
+
+assert {
+  res.status: eq 400
+}
+
+tests {
+  test("rejects a request missing required content", function() {
+    expect(res.getStatus()).to.be.oneOf([400, 422]);
+  });
+}
+
+docs {
+  Deliberately incomplete: the required `content` field (Section 7 in
+  ../../docs/announcement-import.md) is missing entirely, and the fuller
+  embedded reference objects (name/category fields) used in request 02
+  are stripped down to their minimal ref-only form.
+
+  Use this to see what an error response actually looks like, and — as a
+  side effect — to help answer the still-open question of whether the
+  minimal ref-only form for `gazette`/`announcementType`/`publishingEntity`
+  is accepted at all (see ../../docs/announcement-import.md, Section 6.3).
+
+  The exact status code (400 vs. 422) and error body shape are not yet
+  confirmed — see ../../docs/announcement-import.md, Section 10. If you
+  run this and get a result, please help fill in that gap.
+}

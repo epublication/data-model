@@ -1,0 +1,169 @@
+meta {
+  name: 02 Submit - Work Permit (403-FEDE1000)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{BASE_URL_API_INTERFACE}}/announcements/submission
+  body: json
+  auth: inherit
+}
+
+headers {
+  content-type: application/json
+}
+
+script:pre-request {
+  // Randomize a few free-text fields so repeated runs don't collide.
+  const companies = ["Alpha Systems AG", "Nova Ventures GmbH", "Prime Logistics AG"];
+  const persons = ["Otto Hermann", "Eva Kugler", "Hans Berger"];
+  bru.setVar("companyName", companies[Math.floor(Math.random() * companies.length)]);
+  bru.setVar("personName", persons[Math.floor(Math.random() * persons.length)]);
+
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const yyyy = tomorrow.getFullYear();
+  const mm = String(tomorrow.getMonth() + 1).padStart(2, "0");
+  const dd = String(tomorrow.getDate()).padStart(2, "0");
+  bru.setVar("plannedPublicationDate", `${yyyy}-${mm}-${dd}T00:00:00+02:00`);
+}
+
+body:json {
+  {
+    "hasPrivacyRestrictions": false,
+    "plannedPublicationDate": "{{plannedPublicationDate}}",
+    "publicityEndDate": "2026-11-12",
+    "publicityPeriod": 91,
+    "announcementType": {
+      "type": "403-FEDE1000",
+      "name": {
+        "de": "Arbeitszeitbewilligung",
+        "fr": "Autorisation de travail",
+        "it": "Autorizzazione all'orario di lavoro",
+        "en": "Work permit"
+      }
+    },
+    "publishingEntity": {
+      "publishingEntityId": "CHE-123.456.789-001",
+      "uid": "CHE123456789",
+      "organisationType": {
+        "key": "general",
+        "name": { "de": "Alle Meldungstypen" }
+      },
+      "publishingEntityName": { "de": "Sample Publishing Entity" },
+      "publishingEntityNameAddition": { "de": "Test" }
+    },
+    "gazette": {
+      "gazetteId": "FEDE1000",
+      "gazetteCategory": "FEDERAL",
+      "gazetteName": { "de": "Test-Amtsblatt (alle Standard-Meldungstypen)" }
+    },
+    "secondaryGazettes": [],
+    "legalBasis": {
+      "de": "Es gibt keine allgemeingültige Rechtsgrundlage."
+    },
+    "status": "SUBMITTED",
+    "primaryTopic": {
+      "key": "employment",
+      "name": { "de": "Arbeit, Bildung und Beschaffung" }
+    },
+    "topics": [
+      { "key": "employment", "name": { "de": "Arbeit, Bildung und Beschaffung" } }
+    ],
+    "primaryAffectedCanton": "ZH",
+    "affectedCantons": ["ZH", "AG", "SH"],
+    "languages": ["de"],
+    "primaryLanguage": "de",
+    "title": {
+      "de": "Bewilligungsgesuch, Nachtarbeit, {{companyName}}, Muri bei Bern"
+    },
+    "businessCase": {
+      "key": "application",
+      "name": { "de": "Bewilligungsgesuch" }
+    },
+    "legalBlock": {
+      "legalNotice": {
+        "de": "Gegen diese Verfügung kann innert 30 Tagen nach Veröffentlichung das nächsthöhere Rechtsmittel ergriffen werden."
+      },
+      "deadlines": [
+        { "label": { "de": "Frist" }, "type": "DAYS", "value": 30 }
+      ],
+      "contact": {
+        "de": "Sample Amt, Musterabteilung<br>Musterstrasse 1<br>3000 Bern"
+      }
+    },
+    "content": [
+      {
+        "language": "de",
+        "elements": [
+          {
+            "key": "businessCaseType",
+            "label": "Art der Bewilligung",
+            "type": "enum",
+            "hidden": false,
+            "hideLabel": false,
+            "values": ["Zusammengesetzten ununterbrochenen Betrieb"]
+          },
+          {
+            "key": "primaryEntityLegalPerson",
+            "label": "Betroffene Organisation",
+            "type": "legalPerson",
+            "hidden": false,
+            "hideLabel": false,
+            "values": [
+              {
+                "uid": "CHE123456789",
+                "name": "{{companyName}}",
+                "legalForm": "0106",
+                "address": {
+                  "addressLine1": "",
+                  "street": "Musterstrasse",
+                  "houseNumber": "1",
+                  "town": "Bern",
+                  "swissZipCode": "3000"
+                }
+              }
+            ]
+          },
+          {
+            "key": "notice",
+            "label": "Angaben zur Bewilligung",
+            "type": "textarea",
+            "hidden": false,
+            "hideLabel": false,
+            "values": ["<p>Sample publication text ...</p>"]
+          }
+        ]
+      }
+    ]
+  }
+}
+
+assert {
+  res.status: eq 201
+}
+
+tests {
+  test("submission is accepted", function() {
+    expect(res.getStatus()).to.equal(201);
+  });
+}
+
+docs {
+  Submits a minimal, real, working announcement for type 403-FEDE1000
+  (Arbeitszeitbewilligung / work permit) against the FEDE1000 test gazette.
+
+  Requires M2M OAuth2 client credentials (a Technical User) — see
+  ../environments/preview.bru and ../../docs/authentication.md. As of this
+  writing, Technical User self-service is planned but not yet live
+  (target: early October 2026); until then, how to obtain a working
+  credential for this request is unconfirmed.
+
+  `responsiblePerson` is intentionally omitted — it's derived from the
+  submitting Technical User's Client Name (see
+  ../../docs/announcement-import.md, Section 6.3).
+
+  This runs against the FEDE1000 test gazette specifically because it
+  accepts all standard announcement types — safe for repeated testing.
+}
