@@ -16,6 +16,8 @@ Portal) external API.
 - [Migration Guide: SHAB → ePublication](docs/migration-shab.md) — mapping of
   legacy SHAB (Schweizerisches Handelsamtsblatt) announcement codes to the
   new ePublication announcement types.
+- [Bruno examples](bruno/README.md) — runnable requests to try the
+  announcement import API directly, alongside the written docs above.
 
 ## Status
 
