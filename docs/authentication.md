@@ -71,7 +71,7 @@ detailed specification for this is not yet available.
 | Validity | not yet confirmed |
 | Server-side storage | hashed |
 | Revocable | yes |
-| Issuance (current) | by the administrator, requested via [helpcenter ticket](https://helpcenter-epublication.zendesk.com/hc/de/requests/new?ticket_form_id=25547817106076&tf_subject=F%C3%BCr%20MVP%20registrieren) |
+| Issuance (current) | no auth necessery |
 | Issuance (planned) | self-service, via a dedicated portal — spec not yet available |
 
 ```http
