@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "ePublication - Announcement Import Examples",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

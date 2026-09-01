@@ -1,0 +1,30 @@
+auth {
+  mode: oauth2
+}
+
+auth:oauth2 {
+  grant_type: client_credentials
+  access_token_url: {{TOKEN_URL}}
+  refresh_token_url:
+  client_id: {{CLIENT_ID}}
+  client_secret: {{CLIENT_SECRET}}
+  scope:
+  credentials_placement: basic_auth_header
+  credentials_id:
+  token_placement: header
+  token_header_prefix: Bearer
+  auto_fetch_token: true
+  auto_refresh_token: false
+}
+
+docs {
+  Collection-level auth applies M2M OAuth2 client credentials (Technical
+  User) to every request that has `auth: inherit` set. See
+  environments/preview.bru for the variables this depends on, and
+  ../docs/authentication.md for how to obtain a Technical User's
+  clientId/clientSecret.
+
+  Note: as of this writing, the Technical User self-service flow is
+  planned but not yet live (target: early October 2026) — see
+  ../docs/authentication.md for status.
+}
