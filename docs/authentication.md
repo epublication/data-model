@@ -24,10 +24,7 @@ any HTTP client) — mirroring the GitHub/GitLab personal-access-token model.
 
 ### Planned mechanism: Technical Users (Publishing Entity self-service)
 
-> **Status: planned, not yet live.** Target: **early October 2026**
-> (JIRA ABP-727, in progress at time of writing). Until this ships, the
-> exact mechanism third-party applications should use today is still
-> unconfirmed — see the note at the end of this section.
+> **Status: planned, not yet live.** Target: **early October 2026**. Until this ships, the current process (request credentials via Helpcenter form) should be used.
 
 Once released, a **Publisher** of a Publishing Entity will be able to
 self-service create and manage **Technical Users** — M2M clients scoped to
